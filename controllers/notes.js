@@ -8,11 +8,11 @@ exports.addNote = (req, res) => {
     )
     .then((data) => {
       res.status(200).json({
-        message: "Note added successfully",
+        message: "yoo !! Note added successfully",
       });
     })
     .catch((err) => {
-      console.log(erro);
+      console.log(err);
       res.status(400).json({
         message: "DB error occured",
       });
@@ -24,15 +24,15 @@ exports.getAllNotes = (req, res) => {
     .query(`SELECT * FROM notes WHERE email = '${req.email}'`)
     .then((data) => {
       const noteData = data.rows;
-      const filteredData = noteData.map((note) => {
+      const filteredData = noteData.map((value) => {
         return {
-          noteId: note.noteid,
-          heading: note.heading,
-          content: note.content,
+          noteId: value.noteid,
+          heading: value.heading,
+          content: value.content,
         };
       });
       res.status(200).json({
-        message: "Success",
+        message: "These r ur notes",
         data: filteredData,
       });
     })
@@ -54,6 +54,27 @@ exports.updateNote = (req, res) => {
     .then((data) => {
       res.status(200).json({
         message: "Success",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json({
+        message: "DB error occured",
+      });
+    });
+};
+
+
+exports.deleteNote = (req, res) => {
+  const noteId = req.noteId;
+  
+  client
+    .query(
+      `DELETE FROM notes  WHERE noteid='${noteId}'`
+    )
+    .then((data) => {
+      res.status(200).json({
+        message: " Note deleted ",
       });
     })
     .catch((err) => {

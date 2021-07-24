@@ -66,7 +66,7 @@ exports.signUp = (req, res) => {
                 },
                 process.env.SECRET_KEY
               );
-
+ 
               //FINALLY WE SEND THE TOKEN BACK TO USER WITH A SUCCESS MESSAGE
               res.status(200).json({
                 message: "User added successfully to database",
